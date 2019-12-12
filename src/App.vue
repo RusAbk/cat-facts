@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Fact v-on:update="updFact">{{ factText }}</Fact>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Fact from "./components/Fact.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    Fact
+  },
+  data() {
+    return {
+      factText: ""
+    };
+  },
+  methods: {
+    updFact() {
+      this.axios
+        .get("http://188.225.47.187/api/cats/random-fact.php")
+        .then(response => {
+          this.factText = response.data;
+        });
+    }
+  },
+  mounted() {
+    this.updFact();
+    // setInterval(this.updFact, 10000);
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
