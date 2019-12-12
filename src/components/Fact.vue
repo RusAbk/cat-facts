@@ -38,7 +38,7 @@ export default {
 .fact h2:after {
   content: " ";
   display: block;
-  width: 150px;
+  width: 50px;
   height: 3px;
   background-color: #3b4668;
   margin: 15px auto;
